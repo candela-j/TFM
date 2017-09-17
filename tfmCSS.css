@@ -1,0 +1,166 @@
+
+body {
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	background: #F2F3F4;
+	font-family: 'Oswald',"Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
+	font-size: 12px;
+}
+
+
+header {
+	font-family: 'Oswald',"Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
+	border-bottom: 2px solid #E6E9ED;
+	color:#fff;
+	font-size: 16px;
+	margin:0;
+	padding:0;
+	background:#6495ED; /*azul*/
+	/*background:#82E0AA ;	/*verde*/
+}
+
+
+#graf01, #graf02, #graf03, #graf04, #graf05, #graf06, #graf07 {
+margin:10px;
+}
+
+
+.cuerpo {	
+	margin:0;
+	padding:0;
+	float:left;
+	border: 1px solid #E6E9ED;
+	width:83%;
+}
+
+.izquierda {	
+	text-align: center;
+	float:left;
+	width: 14%;
+}
+
+.panelCtrl {	
+	text-align: left;
+	margin:auto;
+	display:inline-block;
+}
+
+
+.controlHosp{
+		display:inline-block;
+		clear:both;
+}
+
+
+.controlFecha{
+		margin:auto;
+		clear:both;
+}
+
+#tit_grafico01 h3, #tit_grafico02 h3,#tit_grafico05 h3, #tit_grafico06 h3,#tit_grafico07 h3{ 
+	    margin: 5px 15px 6px;
+		/* display: block; */
+		display: block; 
+		font-size: 18px;
+		border-bottom: 2px solid #D5D8DC;
+		font-family: 'Oswald', sans-serif;
+	}
+ 
+ 
+#tit_grafico {
+		margin:2px;
+		border-bottom: 2px solid #D5D8DC;
+}
+ 
+ 
+.indicadores {	
+	margin:5px;
+	padding:5px;
+	height:75px;
+	/*border: 1px solid #E6E9ED;*/
+	clear:both;
+}
+
+
+#metrica01, #metrica02, #metrica03, #metrica04, #metrica05, #metrica06, #metrica07, #metrica08 {
+margin:1px;
+border: 1px solid #E6E9ED;
+font-size: 15px;
+background: #fff;
+float:left;
+ width:13.5%;
+}
+
+ #metrica02, #metrica04 ,#metrica06 ,#metrica08 {
+ margin-right:35px;
+border: 1px solid #E6E9ED;
+font-size: 15px;
+background: #fff;
+float:left;
+ width:7%;
+}
+
+
+
+#tit_grafico {
+		margin:2px;
+		border-bottom: 2px solid #D5D8DC;
+}
+
+.fila{	
+	margin:5px;
+	padding:5px;
+	height:250px;
+	//border: 1px solid #E6E9ED;
+	clear:both;
+}
+.separacion{
+		min-height: 10px;
+		//border: 1px solid black;
+		clear:both;
+}
+
+#div70{
+background: #fff;
+border: 1px solid #D5D8DC;
+margin:5px;
+float:left;
+width:68%;
+}
+
+
+#div30{
+background: #fff;
+border: 1px solid #D5D8DC;
+margin:5px;
+float:left;
+width:27%;
+}
+
+#div50{
+background: #fff;
+border: 1px solid #D5D8DC;
+margin:15px;
+float:left;
+width:47%;
+}
+
+#div33{
+background: #fff;
+border: 1px solid #D5D8DC;
+margin:5px;
+float:left;
+width:31%;
+}
+
+.piePagina{
+            font-family: 'Oswald', sans-serif;
+            font-size: small;
+            position: fixed;
+            bottom: 5px;
+            left: 0px;
+            width: 100%;
+           text-align: center;
+          }

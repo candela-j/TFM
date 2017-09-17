@@ -1,0 +1,718 @@
+<!-- Selectores CSS: http://ebweb.es/personalizar-web-selectores-css/-->
+<!-- Colores: http://www.mclibre.org/consultar/htmlcss/css/css_color.html-->
+<!-- Colores: http://htmlcolorcodes.com/es/-->
+<!-- 170609 Cambio la fila div60 y div40 por div70 y div30-->
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv=”Content-Language” content=”es”/>
+
+<script src="../js/d3.min.js"></script>
+<script src="../js/c3.min.js"></script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+ <!-- Cargamos jquery UI-->
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <link href="../css/c3.min.css" rel="stylesheet" />
+
+ <!-- Fuentes del título y del pie de pagina -->
+ <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+ <!-- fuentes del enunciado -->
+ <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+ <link rel="stylesheet" href="../css/TFMcss.css">
+
+<title>UNIR TFM  - Jcandela</title>
+
+
+ <script>
+ //$(document).on("ready", inicializar);
+ //function inicializar() {alert("Hola Mundo… desde jQuery")}
+
+
+ </script>
+ 		
+</head>
+
+
+<body>
+ <header> 
+      <h1 align="center">TFM: Cuadro Mando Servicio Urgencias</h1> 
+      <!-- <hr size=1px color=grey /> -->
+  </header>
+ 
+
+ <div class="izquierda">
+ 				<div class="separacion"></div>
+ 				<div class="separacion"></div>
+
+				<div class="panelCtrl">
+					<div class="controlHosp">
+					 	<fieldset>
+						    <legend>Hospital: </legend>
+						    <label for="checkbox-1">Hosp_1</label>
+						    <input type="checkbox" name="checkbox-1" id="checkbox-1">
+						    <label for="checkbox-2">Hosp_2</label>
+						    <input type="checkbox" name="checkbox-2" id="checkbox-2"> 
+				   		</fieldset>
+				   	</div>
+
+					
+					<div class="separacion"></div>
+
+					<div class="controlFecha">
+					  <fieldset>
+					  	 <legend>Periodo: </legend>
+					   			 <label for="anyo">Año</label>
+					    		<select name="anyo" id="anyo">
+					      				<option value="" ></option>
+					      				<option value="2017" selected="selected">2017</option>
+					    		</select>
+					 			<br>
+					    		<label for="mes">Mes</label>
+					    		<select name="mes" id="mes">
+								      <option value=""></option>
+								      <option value="01" selected="selected">Ene</option>
+								      <option value="02">Feb</option>
+								      <option value="03">Mar</option>
+								      <option value="04">Abr</option>
+								      <option value="05">May</option>
+								      <option value="06">Jun</option>
+					    		</select>
+					  </fieldset>
+					</div>
+
+				</div>
+
+ </div>
+
+ <!--#### fin PAPEL IZQUIERDO -->
+
+ <div class="cuerpo">
+ <div class="separacion"></div>
+ 
+
+ <!-- <div class="separacion"></div> -->
+
+  <div class="indicadores" style="height: 30px;"> 
+		<div id="metrica01" style="text-align:center;"></div>
+		<div id="metrica02" style="text-align:center;"></div>
+		<div id="metrica03" style="text-align:center;"></div>
+		<div id="metrica04" style="text-align:center;"></div>
+		<div id="metrica05" style="text-align:center;"></div>
+		<div id="metrica06" style="text-align:center;"></div>
+		<div id="metrica07" style="text-align:center;"></div>
+		<div id="metrica08" style="text-align:center;"></div>
+ </div>
+
+
+<div class="fila">
+
+ <div>
+		<div id="div70" style="height: 280px;" >
+					<div id="tit_grafico01" style="text-align:center;"> </div>
+					<div id="graf01" style="height: 240px;"></div>	
+		</div>
+		
+		<div id="div30"  style="height: 280px;" >
+					<div id="tit_grafico02" style="text-align:center;"></div>
+					<div id="graf02" style="height: 238px; font-size: 10px;"></div>
+		</div>
+	</div>
+</div>
+
+<div class="separacion"></div>
+ 
+<div class="fila">
+		<div id="div33" style="height: 280px;" >
+					<div id="tit_grafico05" style="text-align:center;"> </div>
+					<div id="graf05" style="height: 230px; font-size: 10px;"></div>
+		</div>
+		
+		<div id="div33" style="height: 280px;" >
+					<div id="tit_grafico06" style="text-align:center;"></div>
+					<div id="graf06" style="height: 230px; font-size: 10px;"></div>
+		</div>
+		
+		<div id="div33" style="height: 280px;">
+					<div id="tit_grafico07" style="text-align:center;"></div>
+					<div id="graf07" style="height: 220px; font-size: 10px;"></div>
+		</div>
+</div>
+
+</div>
+
+<div class="separacion"></div>
+
+  <footer class="piePagina">Autor: <strong>A. Javier Candela Ruiz</strong> - UNIR TFM Master Universitario Visual Analytics &amp; Big Data</footer>
+
+ <script type="text/javascript">
+
+	var sqlAnyo, sqlMes="01", textoMes="Enero";
+  	var urlQuasar="http://localhost:20223/query/fs/?q=";
+
+  	var totalAnoAnterior, totalAnoActual, variacionUrg;
+  	var totalMesAnterior, totalmesActual, variacionMesUrg;
+
+  	var totalAnoAnteriorFact, totalAnoActualFact, variacionFact;
+  	var totalMesAnteriorFact, totalmesActualFact, variacionMesFact;
+
+
+
+//#### INICIO GRAF01 ##################################################################################################
+ 	function graf01(textoMes){
+ 	
+ 		var query01="SELECT DISTINCT COUNT(*) as total, cod_servicio, servicio, dia FROM `/m01/TFM/URG` WHERE ano_mes = 2017"+sqlMes+" GROUP BY cod_servicio, servicio, dia ORDER BY ano, dia, cod_servicio";
+ 		var encodeQuery=encodeURIComponent(query01).replace(/%20/g,'+');
+
+ 		var datosGraf01A = ['Urg.Gen.']; // aqui almacenamos los datos que obtenemos de la SQL
+		var datosGraf01B = ['Urg.Ped.']; // aqui almacenamos los datos que obtenemos de la SQL
+		var datosGraf01C = ['Urg.Gin.']; // aqui almacenamos los datos que obtenemos de la SQL
+
+
+		$('#tit_grafico01').html('<h3>Distribución de Urgencias por dia y servicio: <font color=#797D7F>'+textoMes+'</font></h3>');
+
+		$.getJSON(urlQuasar+encodeQuery, function( oDataReceived ) {
+            	var arrayObjetos = oDataReceived;
+
+              	var objRecibido;
+      			$.each( arrayObjetos, function( index, value ) {
+        				objRecibido = value;
+       					
+        
+         				if (objRecibido.cod_servicio===77) { datosGraf01A.push(objRecibido.total);}                          
+          				else { if (objRecibido.cod_servicio===79) {datosGraf01B.push(objRecibido.total);} else {datosGraf01C.push(objRecibido.total);}};
+
+      			}); // FIN DEL forEAch
+
+		var datos01=[];
+	    datos01.push(datosGraf01A);
+	    datos01.push(datosGraf01B);
+	    datos01.push(datosGraf01C);
+
+		var grafico01 = c3.generate({
+            bindto: '#graf01',
+            data: {   columns: datos01, type: 'spline'},
+            point: {  show: false    },
+            axis: {
+                  x: {
+                      type: 'category',
+                     categories: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
+                       label: 'día mes' },
+                  y: { label: {text: 'num. urg.', position: 'outer-middle'} }
+                 }
+        	}); 
+    	}) // FIN DEL getJSON
+
+        .fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        //console.log( "Request Failed: " + err );
+        alert( "Fallo en la petición de datos a BD: " + err );
+		}); //fin del .fail
+
+ 	}; //fin funcion graf01
+
+//#### FIN - GRAF01 ###################################################################################################
+
+
+//#### INICIO GRAF02 ##################################################################################################
+	function graf02(textoMes){
+		
+	  	var query02="SELECT DISTINCT COUNT(*) as total, servicio FROM `/m01/TFM/URG` WHERE ano_mes = 2017"+sqlMes+" GROUP BY servicio";
+	  	var encodeQuery=encodeURIComponent(query02).replace(/%20/g,'+');
+
+		var datosGraf02A = ['Urg.Gen.']; // aqui almacenamos los datos que obtenemos de la SQL
+		var datosGraf02B = ['Urg.Ped.']; // aqui almacenamos los datos que obtenemos de la SQL
+		var datosGraf02C = ['Urg.Gin.']; // aqui almacenamos los datos que obtenemos de la SQL
+ 
+  		$('#tit_grafico02').html('<h3>Urgencias por Servicio (%):  <font color=#797D7F>'+textoMes+'</font></h3>');
+
+  		$.getJSON( urlQuasar+encodeQuery, function( oDataReceived ) {
+              var arrayObjetos = oDataReceived;
+              var objRecibido;
+
+
+			      	$.each( arrayObjetos, function( index, value ) {
+					         objRecibido = value;
+					         if (objRecibido.servicio==="Urg.Gen.") {datosGraf02A.push(objRecibido.total);}
+					         if (objRecibido.servicio==="Urg.Ped.") {datosGraf02B.push(objRecibido.total);}
+					         if (objRecibido.servicio==="Urg.Gin.") {datosGraf02C.push(objRecibido.total);}
+					     	 }); // FIN DEL forEAch
+
+		var datos02=[];
+		datos02.push(datosGraf02A);
+		datos02.push(datosGraf02B);
+		datos02.push(datosGraf02C);
+
+		var chart = c3.generate({
+		    bindto: '#graf02',
+		    data: {
+		        columns: datos02,
+		        type : 'donut',
+		        onclick: function (d, i) { console.log("onclick", d, i); },
+		        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+		        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+		    },
+		    donut: { title: "Distr. Urg./Servicio"   }
+						}); 
+		         //fin del chart
+
+		    }) // FIN DEL getJSON
+
+
+
+        .fail(function( jqxhr, textStatus, error ) {
+		        var err = textStatus + ", " + error;
+		        alert( "Fallo en la petición: " + err );
+			});
+
+		};
+
+//#### FIN GRAF02 ##################################################################################################
+
+
+//#### INICIO GRAF05 ##################################################################################################
+	function graf05(textoMes){
+
+ 	var query05="SELECT COUNT(*) as total, servicio, cod_servicio, ano FROM `/m01/TFM/URG` WHERE (ano_mes = 2016"+sqlMes+ " OR ano_mes = 2017"+sqlMes+") GROUP BY cod_servicio, servicio, ano ORDER BY ano, cod_servicio";
+ 	var encodeQuery=encodeURIComponent(query05).replace(/%20/g,'+');
+
+ 	var datosGraf05A = ['2016']; // aqui almacenamos los datos que obtenemos de la SQL
+  	var datosGraf05B = ['2017']; // aqui almacenamos los datos que obtenemos de la SQL
+  	var categoria05X=[];
+
+  		$('#tit_grafico05').html('<h3>Urg. respecto mismo mes año ant. : <font color=#797D7F>'+textoMes+'</font></h3>');
+
+        $.getJSON( urlQuasar+encodeQuery, function( oDataReceived ) {
+              var arrayObjetos = oDataReceived;
+              var objRecibido;
+
+      $.each( arrayObjetos, function( index, value ) {
+        objRecibido = value;
+        
+         if (objRecibido.ano===2016) { datosGraf05A.push(objRecibido.total);
+                                      categoria05X.push(objRecibido.servicio);}
+
+          else { datosGraf05B.push(objRecibido.total);};
+
+      }); 
+
+	// -------- INICIO  GRAFICO -------------------------------
+	var datos05=[];
+    datos05.push(datosGraf05A);
+    datos05.push(datosGraf05B);
+   
+        var grafico05 = c3.generate({
+            bindto: '#graf05',
+            data: {
+                columns: datos05,
+                types: {'2016': 'bar', '2017': 'bar' },
+               	 colors: {
+					      2016: '#666666',
+					      2017: '#428bca',          
+                  },
+              },
+   
+             axis: {
+                 x: {  type: 'category', categories: categoria05X }
+                	}
+        });
+		// -------- FIN  GRAFICO -------------------------------
+    		}) // FIN DEL getJSON
+
+        .fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        alert( "Fallo en la petición: " + err );
+			});
+	};
+//#### FIN GRAF05 ##################################################################################################
+
+
+//#### INCIO GRAF06 ##################################################################################################
+
+function graf06(textoMes){
+	var query06="SELECT DISTINCT COUNT(*) as total, payor FROM `/m01/TFM/URG` WHERE ano_mes = 2016"+sqlMes+" GROUP BY payor";
+	var encodeQuery=encodeURIComponent(query06).replace(/%20/g,'+');
+
+	  var datosGraf06A = ['C.Aseg.']; // aqui almacenamos los datos que obtenemos de la SQL
+	  var datosGraf06B = ['Priv.']; // aqui almacenamos los datos que obtenemos de la SQL
+	  var datosGraf06C = ['C.Int']; // aqui almacenamos los datos que obtenemos de la SQL
+	  var datosGraf06D = ['IIPP']; // aqui almacenamos los datos que obtenemos de la SQL
+	  
+	  $('#tit_grafico06').html('<h3>Porcentaje Urg. por tipo de cliente : <font color=#797D7F>'+textoMes+'</font></h3>');
+
+        $.getJSON( urlQuasar+encodeQuery, function( oDataReceived ) {
+              var arrayObjetos = oDataReceived;
+
+              var objRecibido;
+
+ //sacar todos los nombres por la consola
+      $.each( arrayObjetos, function( index, value ) {
+        objRecibido = value;
+            
+         if (objRecibido.payor==="C.ASEG.") {datosGraf06A.push(objRecibido.total);}
+         if (objRecibido.payor==="PRIV.") {datosGraf06B.push(objRecibido.total);}
+         if (objRecibido.payor==="C.INT.") {datosGraf06C.push(objRecibido.total);}
+         if (objRecibido.payor==="IIPP") {datosGraf06D.push(objRecibido.total);}
+
+
+     
+      }); // FIN DEL forEAch
+
+		var datos06=[];
+		datos06.push(datosGraf06A);
+		datos06.push(datosGraf06B);
+		datos06.push(datosGraf06C);
+		datos06.push(datosGraf06D);
+
+var chart = c3.generate({
+			bindto: '#graf06',
+    		data: {
+			        columns: datos06,
+			        type : 'pie',
+			        onclick: function (d, i) { console.log("onclick", d, i); },
+			        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+			        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+   				},
+
+			});     //fin del chart
+    }
+) // FIN DEL getJSON
+
+        .fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        alert( "Fallo en la petición: " + err );
+});;
+
+};
+
+//#### FIN GRAF06 ##################################################################################################
+
+
+
+//#### INICIO GRAF07 ###############################################################################################
+function graf07(textoMes){
+
+ 	var query07="SELECT SUM(importe) as total, servicio, cod_servicio, ano FROM `/m01/TFM/URG` WHERE (ano_mes = 2016"+sqlMes+" OR ano_mes = 2017"+sqlMes+") GROUP BY cod_servicio, servicio, ano ORDER BY ano, cod_servicio";
+ 	var encodeQuery=encodeURIComponent(query07).replace(/%20/g,'+');
+
+ 	var datosGraf07A = ['2016']; // aqui almacenamos los datos que obtenemos de la SQL
+  	var datosGraf07B = ['2017']; // aqui almacenamos los datos que obtenemos de la SQL
+  	var categoria07X=[];
+
+  	$('#tit_grafico07').html('<h3>Facturación : <font color=#797D7F>'+textoMes+'</font></h3>');
+
+        $.getJSON( urlQuasar+encodeQuery, function( oDataReceived ) {
+              var arrayObjetos = oDataReceived;
+
+              var objRecibido;
+
+ //sacar todos los nombres por la consola
+      $.each( arrayObjetos, function( index, value ) {
+        objRecibido = value;
+        
+         if (objRecibido.ano===2016) { datosGraf07A.push(objRecibido.total);
+                                      categoria07X.push(objRecibido.servicio);}
+
+          else { datosGraf07B.push(objRecibido.total);};
+
+      }); 
+
+	// -------- INICIO  GRAFICO -------------------------------
+	var datos07=[];
+    datos07.push(datosGraf07A);
+    datos07.push(datosGraf07B);
+   
+        var grafico07 = c3.generate({
+            bindto: '#graf07',
+            data: {
+                columns: datos07,
+                types: {'2016': 'spline', '2017': 'bar' },
+               	 colors: {
+					      2016: '#666666',
+					      2017: '#428bca',          
+                  },
+              },
+   
+             axis: {
+                 x: {  type: 'category', categories: categoria07X },
+                  y: { label: {text: 'euros (€)', position: 'outer-middle'} }
+                	}
+        });
+		// -------- FIN  GRAFICO -------------------------------
+    		}) // FIN DEL getJSON
+
+        .fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        alert( "Fallo en la petición: " + err );
+			});
+
+};
+
+//#### FIN GRAF07 ##################################################################################################
+
+
+
+//#### INICIO metrica01 VARIACION DE URGENCIAS ACUMULADAS##################################################################################
+function metrica01(textoMes){
+
+ 	var query08="SELECT COUNT(*) as totalUrg,  ano FROM `/m01/TFM/URG` WHERE ano_mes=2016"+sqlMes+" OR  ano_mes=2017"+sqlMes+"  GROUP BY ano ORDER BY ano"; //calculo de indicadores acumulados
+
+ 	var encodeQuery=encodeURIComponent(query08).replace(/%20/g,'+');
+
+  
+
+        $.getJSON( urlQuasar+encodeQuery, function( oDataReceived ) {
+              var arrayObjetos = oDataReceived;
+
+              var objRecibido;
+
+ //sacar todos los nombres por la consola
+      $.each( arrayObjetos, function( index, value ) {
+        objRecibido = value;
+        
+         if (objRecibido.ano == "2016") {totalMesAnterior=+objRecibido.totalUrg;}
+            else {totalMesActual=+objRecibido.totalUrg;}
+
+
+      }); 
+
+
+     
+      variacionMesUrg=((totalMesActual/totalMesAnterior)-1)*100;
+            variacionMesUrg = variacionMesUrg.toFixed(2);
+ 
+      totalMesActual=totalMesActual.toLocaleString();
+
+      $('#metrica01').html("<font color=#797D7F> Urg. mes: </font>"+totalMesActual);
+      $('#metrica02').html("<font color=#797D7F> Var.: </font>"+variacionMesUrg+'%');
+	
+    		}) // FIN DEL getJSON
+
+        .fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        alert( "Fallo en la petición: " + err );
+			});
+
+};
+
+//#### FIN METRICA02 ##################################################################################################
+
+
+
+
+
+
+//#### INICIO metrica02 VARIACION DE URGENCIAS ACUMULADAS##################################################################################
+function metrica02(textoMes){
+
+ 	var query09="SELECT COUNT(*) as totalUrg,  ano FROM `/m01/TFM/URG` WHERE (ano_mes>=201601 AND ano_mes<=2016"+sqlMes+") OR (ano_mes>=201701 AND ano_mes<=2017"+sqlMes+")  GROUP BY ano ORDER BY ano"; //calculo de indicadores acumulados
+
+ 	var encodeQuery=encodeURIComponent(query09).replace(/%20/g,'+');
+
+  
+
+        $.getJSON( urlQuasar+encodeQuery, function( oDataReceived ) {
+              var arrayObjetos = oDataReceived;
+              var objRecibido;
+
+ //sacar todos los nombres por la consola
+      $.each( arrayObjetos, function( index, value ) {
+        objRecibido = value;
+        
+         if (objRecibido.ano == "2016") {totalAnoAnterior=+objRecibido.totalUrg;}
+            else {totalAnoActual=+objRecibido.totalUrg;}
+
+
+      }); 
+
+          
+      variacionUrg=((totalAnoActual/totalAnoAnterior)-1)*100;
+      indicadorVarUrg = Number(variacionUrg.toFixed(2));
+
+       totalAnoActual=totalAnoActual.toLocaleString();
+
+      $('#metrica03').html("<font color=#797D7F> Urg. acum. año: </font>" +totalAnoActual);
+      $('#metrica04').html("<font color=#797D7F> Var.: </font>"+indicadorVarUrg+'%');
+	
+    		}) // FIN DEL getJSON
+
+        .fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        alert( "Fallo en la petición: " + err );
+			});
+
+};
+
+//#### FIN METRICA02 ##################################################################################################
+
+
+//#### INICIO metrica03  FACTURACION MES #########################################################################
+function metrica03(textoMes){
+
+ 	var query10="SELECT DISTINCT SUM(importe) as totalFact, ano FROM `/m01/TFM/URG` WHERE ano_mes=2016"+sqlMes+" OR ano_mes=2017"+sqlMes+" GROUP BY ano ORDER BY ano"; //calculo de indicadores acumulados
+
+
+ 	var encodeQuery=encodeURIComponent(query10).replace(/%20/g,'+');
+
+  
+
+        $.getJSON( urlQuasar+encodeQuery, function( oDataReceived ) {
+              var arrayObjetos = oDataReceived;
+
+              var objRecibido;
+
+ //sacar todos los nombres por la consola
+      $.each( arrayObjetos, function( index, value ) {
+        objRecibido = value;
+        
+         if (objRecibido.ano == "2016") {totalMesAnteriorFact=+objRecibido.totalFact;}
+            else {totalMesActualFact=+objRecibido.totalFact;}
+
+
+      }); 
+
+     
+      variacionFact=((totalMesActualFact/totalMesAnteriorFact)-1)*100;
+       variacionFact = Number(variacionFact.toFixed(2));
+
+       //totalAnoActualFact=formatNumber.new(totalAnoActualFact);
+       totalMesActualFact=totalMesActualFact.toLocaleString();
+
+      
+      $('#metrica05').html(" <font color=#797D7F> Fact. mes: </font>" +totalMesActualFact+'€');
+      $('#metrica06').html(" <font color=#797D7F> Var.: </font>"+variacionFact+'%');
+	
+    		}) // FIN DEL getJSON
+
+        .fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        alert( "Fallo en la petición: " + err );
+			});
+
+};
+
+//#### FIN METRICA03 ##################################################################################################
+
+
+
+
+//#### INICIO metrica04 VARIACION DE FACTURACIONACUMULADA #########################################################################
+function metrica04(textoMes){
+
+ 	var query11="SELECT DISTINCT SUM(importe) as totalFact, ano FROM `/m01/TFM/URG` WHERE (ano_mes>=201601 AND ano_mes<=2016"+sqlMes+") OR (ano_mes>=201701 AND ano_mes<=2017"+sqlMes+") GROUP BY ano ORDER BY ano"; //calculo de indicadores acumulados
+
+
+ 	var encodeQuery=encodeURIComponent(query11).replace(/%20/g,'+');
+
+  
+
+        $.getJSON( urlQuasar+encodeQuery, function( oDataReceived ) {
+              var arrayObjetos = oDataReceived;
+
+              var objRecibido;
+
+ //sacar todos los nombres por la consola
+      $.each( arrayObjetos, function( index, value ) {
+        objRecibido = value;
+        
+         if (objRecibido.ano == "2016") {totalAnoAnteriorFact=+objRecibido.totalFact;}
+            else {totalAnoActualFact=+objRecibido.totalFact;}
+
+
+      }); 
+
+     
+      variacionFact=((totalAnoActualFact/totalAnoAnteriorFact)-1)*100;
+       variacionFact = Number(variacionFact.toFixed(2));
+
+       
+       totalAnoActualFact=totalAnoActualFact.toLocaleString();
+
+  
+      $('#metrica07').html(" <font color=#797D7F> Fact. acum.: </font>" +totalAnoActualFact+'€');
+      $('#metrica08').html(" <font color=#797D7F >Var.: </font>"+variacionFact+'%');
+	
+    		}) // FIN DEL getJSON
+
+        .fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        alert( "Fallo en la petición: " + err );
+			});
+
+};
+
+//#### FIN METRICA04 ##################################################################################################
+
+
+
+
+ 	function inicializar() {
+	// -- eleccion menu MES ----
+
+		$('#tit_grafico01').html('<h3>Distribución de Urgencias por dia y servicio: <font color=#797D7F>'+textoMes+'</font></h3>');
+ 		$('#tit_grafico02').html('<h3>Urgencias por Servicio (%):  <font color=#797D7F>'+textoMes+'</font></h3>');
+		$('#tit_grafico05').html('<h3>Urg. respecto mismo mes año ant. : <font color=#797D7F>'+textoMes+'</font></h3>');
+		$('#tit_grafico06').html('<h3>Porcentaje Urg. por tipo de cliente : <font color=#797D7F>'+textoMes+'</font></h3>');
+		$('#tit_grafico07').html('<h3>Facturación : <font color=#797D7F>'+textoMes+'</font></h3>');
+
+  	    $( "#mes" ).selectmenu({
+		  	     width: 80, //modif. ancho ddel select. box.
+		      	 change: function( event, data ) {
+
+			       	sqlMes=data.item.value;
+			         //alert(sqlMes);
+
+					if (sqlMes==="01") {textoMes="ENERO"};
+					if (sqlMes==="02") {textoMes="FEBRERO"};
+					if (sqlMes==="03") {textoMes="MARZO"};
+					if (sqlMes==="04") {textoMes="ABRIL"};
+					if (sqlMes==="05") {textoMes="MAYO"};
+					if (sqlMes==="06") {textoMes="JUNIO"};
+
+			      
+					graf01(textoMes);
+					graf02(textoMes);
+					graf05(textoMes);
+					graf06(textoMes);
+					graf07(textoMes);
+					metrica01(textoMes);
+					metrica02(textoMes);
+					metrica03(textoMes);
+					metrica04(textoMes);
+			     	
+       } 
+     }); // fin de selectmenu mes
+
+	// -- eleccion menu AÑO----
+
+  	   $( "#anyo" ).selectmenu({
+  	     width: 80, //modif. ancho ddel select. box.
+       change: function( event, data ) {
+       	sqlAnyo=data.item.value;
+        // alert(sqlAnyo);
+       }
+     }); // fin de selectmenu mes
+
+	
+	 graf01(textoMes);
+	 graf02(textoMes);
+	 graf05(textoMes);
+	 graf06(textoMes);
+	 graf07(textoMes);
+	 metrica01(textoMes);
+	 metrica02(textoMes);
+	 metrica03(textoMes);
+	 metrica04(textoMes);
+
+
+ }; // fin function inicializar()
+
+$(document).on("ready", inicializar);
+
+
+ </script>
+
+</body>
+</html> 
